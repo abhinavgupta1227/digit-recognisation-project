@@ -13,8 +13,8 @@ print("shape of training lables: ", y_train.shape)
 
 index=12
 print("Lable: ", y_train[index])
-plt.imshow(x_train[index], cmap='Greys')
-plt.show()
+#plt.imshow(x_train[index], cmap='Greys')
+#plt.show()
 # --- Step 3: Preprocess the data ---
 # Flatten + normalize images
 x_train = x_train.reshape(x_train.shape[0], 28*28) / 255.0
@@ -34,4 +34,16 @@ model = Sequential([
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 print(model.summary())
-okok 
+#step 5: training the model
+history = model.fit(
+    x_train,y_train,
+    epochs=5,
+    batch_size=32,
+    validation_data=(x_test,y_test)
+)
+
+#step 6: evaluate the model
+test_loss, test_acc = model.evaluate(x_test,y_test)
+print("Test Accuracy", test_acc)
+
+model.save("digit_model.h5")
