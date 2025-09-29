@@ -16,7 +16,7 @@ def load_model():
 
 model = load_model()
 
-def preprocess_image():
+def preprocess_image(image):
     """
     Preprocesses the uploaded image to match the model's expected input format.
     - Converts to grayscale
@@ -28,7 +28,7 @@ def preprocess_image():
     resized_image= gray_image.resize((28,28)) #Step 2: Resize the image to 28x28 pixels
     image_array = np.array(resized_image)   # Step 3: Convert the image to a grid of numbers (numpy array)
     inverted_image = 255.0-image_array    # Step 4: Invert the image colors
-    processed_image = inverted_image.reshaped(1,784) / 255.0  # Step 5: Normalize and reshape the image for the model
+    processed_image = inverted_image.reshape(1,784) / 255.0  # Step 5: Normalize and reshape the image for the model
 
     return processed_image
 
@@ -46,7 +46,7 @@ if uploaded_file is not None:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.image(image, caption='Uploaded Image', use_column_widget=True)
+        st.image(image, caption='Uploaded Image', use_container_width=True)
 
     with col2:
         st.write("### Prediction:")
